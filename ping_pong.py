@@ -1,6 +1,9 @@
 from pygame import *
+
+
 '''Необхідні класи'''
 mixer.init()
+
 font.init()
 #text
 font1 = font.SysFont('Italic',30)
@@ -65,46 +68,73 @@ pl2wins = transform.scale(image.load('p2wins.png'), (600,500))
 game = True
 finish = False
 clock = time.Clock()
- 
-while game:
-    for e in event.get():
-        if e.type == QUIT:
-            game = False
-  
-    if finish != True:
-        window.fill(back)
+def starting():
+    global game
+    global clock
+    global finish
+    global s1
+    global s2
+    global score1
+    global score2
+    global x1, x2, y1, y2
+    global pl1wins
+    global pl2wins
+    global racket1
+    global racket2
+    global ball
+    global x
+    global y
+    global s 
+    while game:
+        for e in event.get():
+            if e.type == QUIT:
+                game = False
+    
+    
 
-    racket1.reset()
-    ball.reset()
-    racket1.update_l()
-    racket2.update_r()
-    racket2.reset()
-
-    ball.rect.x += x
-    ball.rect.y += y
-
-    if ball.rect.y > 450 or ball.rect.y < 0:
-        y *= -1
-
-    if sprite.collide_rect(ball,racket1):
-        x *= -1
-        s2.play()
         
-    if sprite.collide_rect(ball,racket2):
-        x *= -1
-        s2.play()
-    
-    if ball.rect.x < 0  :
-        window.blit(pl1wins, (600,500))
-    
-    text = font1.render(s,True,(0,0,0))
-    window.blit(text,(100,100))
-     
-
-    
-
-    
         
-          
-    display.update()
-    clock.tick(60)
+        if finish != True:
+            window.fill(back)
+
+        racket1.reset()
+        ball.reset()
+        racket1.update_l()
+        racket2.update_r()
+        racket2.reset()
+
+        ball.rect.x += x
+        ball.rect.y += y
+
+        if ball.rect.y > 450 or ball.rect.y < 0:
+            y *= -1
+
+        if sprite.collide_rect(ball,racket1):
+            x *= -1
+            s2.play()
+            
+        if sprite.collide_rect(ball,racket2):
+            x *= -1
+            s2.play()
+
+        if ball.rect.x > 510:
+            window.blit(pl1wins,(0,0))
+            ball.rect.x = 150
+            ball.rect.y = 100
+        if ball.rect.x < -1:
+            window.blit(pl2wins,(0,0))
+            ball.rect.x = 150
+            ball.rect.y = 100
+            
+            
+
+        
+        
+        text = font1.render(s,True,(0,0,0))
+        window.blit(text,(100,100))
+        
+
+        display.update()
+        clock.tick(60)
+
+
